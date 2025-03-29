@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "06fab208-8795-45ab-a872-7a0d54b10eab",
+		"name": "00_POCs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33509516"
+	},
+	"item": [
+		{
+			"name": "nest-keycloak",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "meu-cliente",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "XjQd9qex1EUyLxXcw0i6ElHMc3lnk7DN",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "testuser",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/meu-realm/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"meu-realm",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rota protegida",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItVlpDYnlVaUFuVGtqZFYwSklQb1hMWVRSSm9JUkZZQTdxZDREbWdsZ3hZIn0.eyJleHAiOjE3NDMyNTk2ODUsImlhdCI6MTc0MzI1OTM4NSwianRpIjoiNDRmNjE5MGItOWRhYy00MTFjLThkYTUtNmJlMGRhOTJhNmNiIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9tZXUtcmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiODhmOWYwYzMtNzRiMi00MWVkLWFmOWQtN2NhMDg0ZjZjNzAyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWV1LWNsaWVudGUiLCJzaWQiOiI3MmU4MTkxNS0xYzlhLTRiNDQtOGMwYS1lZWU0ZGQxZmRkZDIiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1tZXUtcmVhbG0iLCJvZmZsaW5lX2FjY2VzcyIsImFkbWluIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6InRlc3RlIHRlc3RlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidGVzdHVzZXIiLCJnaXZlbl9uYW1lIjoidGVzdGUiLCJmYW1pbHlfbmFtZSI6InRlc3RlIiwiZW1haWwiOiJ0ZXN0ZUB0ZXN0ZS5jb20uYnIifQ.I5gJ5r0zUv23Z0nNGxh7YsOOLG9r1Sr6LiTzTKCCi6olVYgcsL6S4RlwTkVf5MVBelOMA7Nh7mDGYRLuuKIeE478vqy_AijjQa0GZh0A-1krRYPFOFVtyuwwiVluMGUvWfBXRFomT05Ze4ibVEovi-XiAvyn8XIVL7TXnpY_naByh6DEo6Oh7TqTdW_Ja-iAdEW6picpNXYV8C9MKgySEuA4WOseDeY38CrAkeWx6OhVmGFfQcupI7JnD-GSO2E-x2PIgbARInwQ5hi8L99Jw0cdkeJ_0o9Qs-cIDfaNsEGytWU9rfm-Z6WGFFA7z2yiMN-PrAGpKYQXJEoDnsbt3w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer SEU_TOKEN_AQUI"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/protegido",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"protegido"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rota admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICItVlpDYnlVaUFuVGtqZFYwSklQb1hMWVRSSm9JUkZZQTdxZDREbWdsZ3hZIn0.eyJleHAiOjE3NDMyNzgyNDAsImlhdCI6MTc0MzI2MDI0MCwianRpIjoiNTAyMjViZTktNWNlMC00YWI3LTg4MDMtMGQ3Yzc3NzQ5MDIwIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9tZXUtcmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiODhmOWYwYzMtNzRiMi00MWVkLWFmOWQtN2NhMDg0ZjZjNzAyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibWV1LWNsaWVudGUiLCJzaWQiOiJiMzdhZDM4Zi1kNjQxLTRiYjQtOWVmZC1mN2RkMWQ5Y2UzNWIiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1tZXUtcmVhbG0iLCJvZmZsaW5lX2FjY2VzcyIsImFkbWluIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6InRlc3RlIHRlc3RlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidGVzdHVzZXIiLCJnaXZlbl9uYW1lIjoidGVzdGUiLCJmYW1pbHlfbmFtZSI6InRlc3RlIiwiZW1haWwiOiJ0ZXN0ZUB0ZXN0ZS5jb20uYnIifQ.YbhIT2ZS3m3Ytwe3uC0UmgtfWydt4zEbXQEGGcLmvGv51F81WQTN8sGK3S8UdrLFRIxlUiP8JaVgL4qtdcZ85ifLyc0dhnWB9bl_H1jodT8gy4MTytzpuPjiXG7szIBIJYj_aPldJOSOgj5DW_Re-DZKVseR6wtjen6Yl0l5BDShlzk0MYoqFGTq1fOJwrBnsmaQVZiSwWPVhHiXe8afevV6QFfuCNWONrNr8zhf8p57yRLJU9vRudlejsZzH3jtVtBYwk_65ytJWTOA_8sAL6hLXNkHyCK_Fgtu2aNXUT4Sv132vYA2EKLx5bpewGun778wIk0yWLbLqCgCaDPDtA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer SEU_TOKEN_AQUI"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,98 +1,173 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+**Idiomas disponíveis:**
 
-## Description
+* Português (PT-BR)
+* Inglês (EN)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Project setup
+# POC Nest.js with Keycloak
 
-```bash
-$ yarn install
-```
+This project demonstrates the configuration and creation of a simple Nest.js environment using Keycloak for authentication and route authorization.
 
-## Compile and run the project
+## Prerequisites
 
-```bash
-# development
-$ yarn run start
+* [Docker](https://www.docker.com/) installed
+* [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com/) installed
 
-# watch mode
-$ yarn run start:dev
+## Environment Setup
 
-# production mode
-$ yarn run start:prod
-```
+1.  **Create a new Nest.js project:**
 
-## Run tests
+    ```bash
+    nest new poc-nest-keycloak
+    cd poc-nest-keycloak
+    ```
 
-```bash
-# unit tests
-$ yarn run test
+2.  **Install the necessary dependencies:**
 
-# e2e tests
-$ yarn run test:e2e
+    ```bash
+    yarn add @nestjs/passport passport passport-jwt keycloak-connect nest-keycloak-connect
+    ```
 
-# test coverage
-$ yarn run test:cov
-```
+3.  **Configure Docker Compose:**
 
-## Deployment
+    * Create a `docker-compose.yml` file in the project root to spin up Keycloak and any required databases.
+    * Example `docker-compose.yml`:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+        ```yaml
+        version: '3.8'
+        services:
+          keycloak:
+            image: quay.io/keycloak/keycloak:latest
+            environment:
+              KEYCLOAK_ADMIN: admin
+              KEYCLOAK_ADMIN_PASSWORD: admin
+            ports:
+              - '8080:8080'
+        ```
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+    * Start the containers with:
 
-```bash
-$ yarn install -g mau
-$ mau deploy
-```
+        ```bash
+        docker compose up -d
+        ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+4.  **Configure Keycloak:**
 
-## Resources
+    * Access the Keycloak admin console at `http://localhost:8080/admin/`.
+    * Create a new realm (e.g., `meu-realm`).
+    * Create a new client (e.g., `meu-cliente`).
+    * Obtain the `KEYCLOAK_SECRET` from the client credentials.
+    * Create a test user with a valid email and non-temporary password.
+    * Create an `admin` role and assign it to the test admin user.
 
-Check out a few resources that may come in handy when working with NestJS:
+5.  **Configure Nest.js:**
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+    * Create a `keycloak` folder for Keycloak configuration files.
+    * Create the `keycloak.module.ts` file inside the keycloak folder, and configure the connection to Keycloak.
+    * Configure environment variables in the `.env` file (e.g., `KEYCLOAK_REALM`, `KEYCLOAK_CLIENT_ID`, `KEYCLOAK_SECRET`).
+    * Configure `app.module.ts` to import and use the `KeycloakModule`.
 
-## Support
+6.  **Create Routes:**
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+    * Create protected routes using the `@Roles` decorator to define required roles.
+    * Create public routes using the `@Public` decorator to allow access without authentication.
+    * The login route can be implemented directly in the API or via Postman for testing.
 
-## Stay in touch
+7.  **Test Routes:**
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+    * Use Postman or a similar tool to test the protected and public routes.
+    * The `postman-collection.yml` file in the repository contains the test calls used.
 
-## License
+## Notes
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+* In some cases, specifying the realm when using roles may be necessary (e.g., `realm:ROLE-NAME`).
+* The `postman-collection.yml` file contains the test calls used in this project.
+
+## Contribution
+
+Contributions are welcome! Feel free to open issues or pull requests.
+
+# POC Nest.js com Keycloak
+
+Este projeto demonstra a configuração e criação de um ambiente Nest.js simples, utilizando Keycloak para autenticação e autorização de rotas.
+
+## Pré-requisitos
+
+* [Docker](https://www.docker.com/) instalado
+* [Node.js](https://nodejs.org/) e [Yarn](https://yarnpkg.com/) instalados
+
+## Configuração do Ambiente
+
+1.  **Criar um novo projeto Nest.js:**
+
+    ```bash
+    nest new poc-nest-keycloak
+    cd poc-nest-keycloak
+    ```
+
+2.  **Instalar as dependências necessárias:**
+
+    ```bash
+    yarn add @nestjs/passport passport passport-jwt keycloak-connect nest-keycloak-connect
+    ```
+
+3.  **Configurar o Docker Compose:**
+
+    * Crie um arquivo `docker-compose.yml` na raiz do projeto para subir o Keycloak e os bancos de dados necessários.
+    * Exemplo de `docker-compose.yml`:
+
+        ```yaml
+        version: '3.8'
+        services:
+          keycloak:
+            image: quay.io/keycloak/keycloak:latest
+            environment:
+              KEYCLOAK_ADMIN: admin
+              KEYCLOAK_ADMIN_PASSWORD: admin
+            ports:
+              - '8080:8080'
+        ```
+
+    * Suba os containers com:
+
+        ```bash
+        docker compose up -d
+        ```
+
+4.  **Configurar o Keycloak:**
+
+    * Acesse o console de administração do Keycloak em `http://localhost:8080/admin/`.
+    * Crie um novo realm (ex: `meu-realm`).
+    * Crie um novo cliente (ex: `meu-cliente`).
+    * Obtenha o `KEYCLOAK_SECRET` nas credenciais do cliente.
+    * Crie um usuário de teste com um e-mail válido e senha não temporária.
+    * Crie uma role `admin` e atribua-a ao usuário admin de teste.
+
+5.  **Configurar o Nest.js:**
+
+    * Crie uma pasta `keycloak` para os arquivos de configuração do Keycloak.
+    * Crie o arquivo `keycloak.module.ts` dentro da pasta keycloak, e configure a conexão com o Keycloak.
+    * Configure as variáveis de ambiente no arquivo `.env` (ex: `KEYCLOAK_REALM`, `KEYCLOAK_CLIENT_ID`, `KEYCLOAK_SECRET`).
+    * Configure o `app.module.ts` para importar e usar o `KeycloakModule`.
+
+6.  **Criar Rotas:**
+
+    * Crie rotas protegidas usando o decorator `@Roles` para definir as roles necessárias.
+    * Crie rotas públicas usando o decorator `@Public` para permitir acesso sem autenticação.
+    * A rota de login pode ser implementada diretamente na API ou via Postman para testes.
+
+7.  **Testar as Rotas:**
+
+    * Use o Postman ou outra ferramenta similar para testar as rotas protegidas e públicas.
+    * O arquivo `postman-collection.yml` no repositório contém as chamadas utilizadas para teste.
+
+## Observações
+
+* Em alguns casos, pode ser necessário especificar o realm ao usar roles (ex: `realm:NOME-DA-ROLE`).
+* O arquivo `postman-collection.yml` contém as chamadas de teste utilizadas neste projeto.
+
+## Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
